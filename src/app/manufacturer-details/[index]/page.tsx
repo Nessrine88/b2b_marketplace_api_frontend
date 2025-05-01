@@ -7,10 +7,9 @@ type Product = {
   id: string;
   name: string;
   price: number;
-  // Add other product properties as needed
 };
 
-type ManufacturerData = Product[]; // Or a more specific type if the API returns more data
+type ManufacturerData = Product[];
 
 const ManufacturerDetails = () => {
   const { index } = useParams<{ index: string }>();
