@@ -4,6 +4,7 @@ import ManufacturersCard from './ManufacturersCard'
 import { useFetch } from '../utils/useFetch'
 import { useState } from 'react'
 import SearchBar from './SearchBar'
+import Loading from './Loading'
 
 interface Manufacturer {
   imageSrc: string;
@@ -20,7 +21,7 @@ const ManufacturersList = () => {
   const { data, loading, error } = useFetch<Manufacturer[]>("/manufacturers");
 
   if (loading) {
-    return <div className="text-center py-8">Loading manufacturers...</div>;
+    return <div className="text-center py-8"><Loading /> </div>;
   }
 
   if (error) {
@@ -40,7 +41,6 @@ const ManufacturersList = () => {
     id: item.id || 0
   }));
 
-  // Filter manufacturers with safe property access
   const filteredManufacturers = manufacturers.filter((manufacturer) => {
     const searchLower = searchQuery.toLowerCase();
     const nameLower = manufacturer.name?.toLowerCase() || '';
@@ -58,7 +58,7 @@ const ManufacturersList = () => {
   });
 
   return (
-    <div className="px-4">
+    <div className=" ">
       <SearchBar 
         onSearch={setSearchQuery} 
         onCategoryChange={setSelectedCategory} 
@@ -66,10 +66,12 @@ const ManufacturersList = () => {
       {filteredManufacturers.length === 0 ? (
         <div className="text-center py-8">No manufacturers match your search criteria</div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-8">
+        <div className='flex justify-center'>
+        <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10  ">
           {filteredManufacturers.map((info) => (
             <ManufacturersCard key={info.id} info={info} />
           ))}
+        </div>
         </div>
       )}
     </div>

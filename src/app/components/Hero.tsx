@@ -1,11 +1,12 @@
+import Logout from "./Logout";
 import ManufacturersList from "./ManufacturersList";
-import SearchBar from "./SearchBar";
 
 const Hero = () => {
   return (
-    <>
+    <div >
       <ManufacturersList />
-    </>
+
+    </div>
   );
 }
 

@@ -1,5 +1,5 @@
 'use client'
-import React from 'react'
+import React from 'react';
 
 interface SearchBarProps {
   onSearch: (query: string) => void;
@@ -14,46 +14,48 @@ const SearchBar = ({ onSearch, onCategoryChange }: SearchBarProps) => {
     'Food & Beverage',
     'Pharmaceuticals',
     'Textiles',
-    'Machinery'
+    'Machinery',
   ];
 
   return (
-    <div className='flex mt-28 justify-center items-center'>
-      <div className="relative flex w-full max-w-xl bg-white rounded-lg shadow-sm">
-        {/* Category Dropdown */}
-        <div className="relative">
-          <select
-            onChange={(e) => onCategoryChange(e.target.value)}
-            className="h-12 pl-4 pr-8 text-sm border-r-0 rounded-l-lg appearance-none bg-[#f8f8f8] border border-[#e0e0e0] focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
-          >
-            {categories.map((category) => (
-              <option key={category} value={category}>
-                {category}
-              </option>
-            ))}
-          </select>
-          <div className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
-            <svg className="w-5 h-5 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-            </svg>
+    <div className="md:mt-28 mt-16 px-4 w-full flex justify-center">
+      <div className="w-full max-w-4xl">
+        <div className="flex flex-col sm:flex-row rounded-lg overflow-hidden shadow-sm border border-[var(--c4)] bg-[var(--c1)]">
+          {/* Dropdown */}
+          <div className="relative w-full sm:w-1/3 border-b sm:border-b-0 sm:border-r border-[var(--c4)]">
+            <select
+              onChange={(e) => onCategoryChange(e.target.value)}
+              className="w-full h-12 pl-4 pr-10 text-sm bg-[var(--c1)] appearance-none focus:outline-none"
+            >
+              {categories.map((category) => (
+                <option key={category} value={category}>
+                  {category}
+                </option>
+              ))}
+            </select>
+            <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none">
+              <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+            </div>
           </div>
+
+          {/* Input */}
+          <input
+            type="text"
+            onChange={(e) => onSearch(e.target.value)}
+            placeholder="Search manufacturers..."
+            className="w-full h-12 px-4 text-sm bg-[var(--c1)] focus:outline-none"
+          />
+
+          {/* Button */}
+          <button
+            type="button"
+            className="w-full sm:w-auto h-12 px-6 text-white bg-[var(--c1)] hover:bg-gray-800 transition-colors"
+          >
+            Search
+          </button>
         </div>
-
-        {/* Search Input */}
-        <input
-          type="text"
-          onChange={(e) => onSearch(e.target.value)}
-          placeholder="Search manufacturers..."
-          className="flex-1 h-12 px-4 py-2 text-sm border border-[#e0e0e0] focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
-        />
-
-        {/* Search Button */}
-        <button
-          type="button"
-          className="h-12 px-6 text-black bg-black rounded-r-lg hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-        >
-          Search
-        </button>
       </div>
     </div>
   );

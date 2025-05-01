@@ -1,9 +1,9 @@
 "use client"
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation'; // Redirect after registration
+import Loading from '../components/Loading';
 
 const Registration = () => {
-  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -30,7 +30,7 @@ const Registration = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          user: { email, password,username },
+          user: { email, password },
         }),
       });
 
@@ -62,18 +62,7 @@ const Registration = () => {
 
         <form onSubmit={handleSubmit}>
         <div className="mb-4">
-            <label htmlFor="username" className="block text-sm font-medium text-gray-700">
-              Full name
-            </label>
-            <input
-              type="text"
-              id="username"
-              name="username"
-              required
-              className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
+            
           </div>
           <div className="mb-4">
             <label htmlFor="email" className="block text-sm font-medium text-gray-700">
@@ -125,7 +114,7 @@ const Registration = () => {
             className="w-full py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
             disabled={loading}
           >
-            {loading ? 'Registering...' : 'Register'}
+            {loading ? <Loading />: 'Register'}
           </button>
         </form>
 

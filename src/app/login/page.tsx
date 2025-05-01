@@ -2,6 +2,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import Loading from "../components/Loading";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -53,7 +54,7 @@ const Login = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+    <div className="flex items-center justify-center min-h-screen bg-gray-100 hex-pattern-bg w-full h-screen">
       <div className="bg-white p-8 rounded-lg shadow-lg w-96">
         <h2 className="text-2xl font-semibold text-center mb-6">Login</h2>
         {error && <div className="text-red-500 text-center mb-4">{error}</div>}
@@ -95,7 +96,7 @@ const Login = () => {
             disabled={loading} // Disable the button while loading
           >
             {loading ? (
-              <span>Logging In...</span> // You can add a spinner here
+              <Loading />
             ) : (
               "Login"
             )}
