@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { useFetch } from '@/app/utils/useFetch';
+import { useFetch } from '@/app/Hooks/useFetch';
 import { useParams } from 'next/navigation';
 import Loading from '@/app/components/Loading';
 import { MapPin, Tags } from 'lucide-react';

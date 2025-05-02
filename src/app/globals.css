@@ -164,3 +164,14 @@ body {
   filter: blur(8px);
   transform: rotate(330deg);
 }
+
+/* Fix for autofill background color */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px #171717 inset !important;
+  -webkit-text-fill-color: #d1d5db !important;
+  caret-color: #d1d5db !important;
+  transition: background-color 5000s ease-in-out 0s;
+}

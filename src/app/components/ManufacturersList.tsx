@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 import ManufacturersCard from './ManufacturersCard'
-import { useFetch } from '../utils/useFetch'
+import { useFetch } from '../Hooks/useFetch'
 import { useState } from 'react'
 import SearchBar from './SearchBar'
 import Loading from './Loading'
