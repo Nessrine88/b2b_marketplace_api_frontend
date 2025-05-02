@@ -62,7 +62,7 @@ const Logout = () => {
         <div className="text-center">
         <button
               onClick={handleLogout}
-              className="px-4 py-2 rounded-md bg-neutral-800 text-white transition duration-300 hover:bg-red-600 w-full"
+              className="px-3 py-1 rounded-md bg-neutral-800 text-white transition duration-300 hover:bg-red-600 w-full"
               disabled={loading}
             >
               {loading ? <Loading /> : 'Logout'}

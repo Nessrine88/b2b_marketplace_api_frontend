@@ -18,14 +18,14 @@ const SearchBar = ({ onSearch, onCategoryChange }: SearchBarProps) => {
   ];
 
   return (
-    <div className="md:mt-28 mt-16 px-4 w-full flex justify-center">
+    <div className="md:mt-28 mt-20 px-4 w-full flex justify-center">
       <div className="w-full max-w-4xl">
         <div className="flex flex-col sm:flex-row rounded-lg overflow-hidden shadow-sm border border-[var(--c4)] bg-[var(--c1)]">
           {/* Dropdown */}
           <div className="relative w-full sm:w-1/3 border-b sm:border-b-0 sm:border-r border-[var(--c4)]">
             <select
               onChange={(e) => onCategoryChange(e.target.value)}
-              className="w-full h-12 pl-4 pr-10 text-sm bg-[var(--c1)] appearance-none focus:outline-none"
+              className="w-full h-12 pl-4 pr-10 text-sm bg-[var(--c1)] text-neutral-500 appearance-none focus:outline-none"
             >
               {categories.map((category) => (
                 <option key={category} value={category}>

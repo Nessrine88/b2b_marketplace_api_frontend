@@ -84,45 +84,52 @@ const ManufacturersList = () => {
       ) : (
         <>
           <div className='flex justify-center  items-center'>
-            <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10">
+            <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-10">
               {currentItems.map((info) => (
                 <ManufacturersCard key={info.id} info={info} />
               ))}
             </div>
           </div>
           
-          {/* Pagination controls */}
-          <div className="flex justify-center mt-8 mb-12 absolute bottom-0 right-1/2 translate-x-1/2">
-            <nav className="inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
-              <button
-                onClick={() => paginate(Math.max(1, currentPage - 1))}
-                disabled={currentPage === 1}
-                className={`text-[var(--c1)] relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 ${currentPage === 1 ? 'bg-gray-200 cursor-not-allowed' : 'bg-white hover:bg-gray-50'}`}
-              >
-                <span className="sr-only">Previous</span>
-                &larr; Previous
-              </button>
-              
-              {Array.from({ length: totalPages }, (_, i) => i + 1).map((number) => (
-                <button
-                  key={number}
-                  onClick={() => paginate(number)}
-                  className={`relative inline-flex items-center px-4 py-2 border ${currentPage === number ? 'bg-neutral-500 text-white' : 'bg-white text-gray-700 hover:bg-gray-50'}`}
-                >
-                  {number}
-                </button>
-              ))}
-              
-              <button
-                onClick={() => paginate(Math.min(totalPages, currentPage + 1))}
-                disabled={currentPage === totalPages}
-                className={`relative inline-flex items-center text-[var(--c1)] px-2 py-2 rounded-r-md border border-gray-300 ${currentPage === totalPages ? 'bg-gray-200 cursor-not-allowed' : 'bg-white hover:bg-gray-50'}`}
-              >
-                <span className="sr-only">Next</span>
-                Next &rarr;
-              </button>
-            </nav>
-          </div>
+{/* Pagination controls */}
+<div className="fixed bottom-10 right-1/2 translate-x-1/2 flex flex-col items-center gap-4">
+  <div className="flex items-center gap-4">
+    <button
+      onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+      disabled={currentPage === 1}
+      className="px-4 py-2 text-black rounded bg-gray-200 hover:bg-gray-300 disabled:opacity-50"
+    >
+      Previous
+    </button>
+
+    <div className="flex items-center gap-2">
+    {Array.from({ length: totalPages }, (_, i) => i + 1).map((number) => (
+      <button
+        key={number}
+        onClick={() => setCurrentPage(number)}
+        className={`px-4 py-2 border rounded ${
+          currentPage === number
+            ? 'bg-neutral-500 text-white'
+            : 'bg-white text-gray-700 hover:bg-gray-100'
+        }`}
+      >
+        {number}
+      </button>
+    ))}
+  </div>
+
+    <button
+      onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+      disabled={currentPage === totalPages}
+      className="px-4 py-2 text-black rounded bg-gray-200 hover:bg-gray-300 disabled:opacity-50"
+    >
+      Next
+    </button>
+  </div>
+
+
+</div>
+
           
         </>
       )}
