@@ -1,50 +1,39 @@
 "use client";
+
 import { useState } from "react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useApi } from "../Hooks/useApi";
 import Loading from "../components/Loading";
+import Link from "next/link";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const { request, loading, error } = useApi();
+  const [localError, setLocalError] = useState("");
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError("");
-    setLoading(true);
+    setLocalError("");
 
-    try {
-      const response = await fetch("http://localhost:3000/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          user: { email, password },
-        }),
-      });
+    const result = await request("/login", {
+      method: "POST",
+      body: { user: { email, password } },
+    });
 
-      if (!response.ok) throw new Error("Invalid email or password");
-
-      const authorizationHeader = response.headers.get("Authorization");
-      const token = authorizationHeader?.split(" ")[1];
-      if (token) {
-        localStorage.setItem("token", token);
-      }
-
-      const data = await response.json();
-      localStorage.setItem("user", JSON.stringify(data));
-
-      router.push("/");
-    } catch (error) {
-      console.error("Login error:", error);
-      setError("Invalid email or password");
-    } finally {
-      setLoading(false);
+    if (!result) {
+      setLocalError("Invalid email or password");
+      return;
     }
+
+    const { json, authHeader } = result;
+    const token = authHeader?.split(" ")[1];
+
+    if (token) localStorage.setItem("token", token);
+    localStorage.setItem("user", JSON.stringify(json));
+
+    router.push("/");
   };
 
   return (
