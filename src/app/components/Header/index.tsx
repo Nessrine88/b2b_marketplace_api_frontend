@@ -1,4 +1,3 @@
-
 "use client"
 import React from 'react'
 import Logo from './Logo'
@@ -8,28 +7,57 @@ import { useThemeSwitch } from '@/app/Hooks/useThemeSwitch'
 import Logout from '../Logout'
 
 const Header = () => {
-
   const [mode, setMode] = useThemeSwitch()
 
   return (
-    <div className='w-full p-4 px-10 flex items-center justify-between  '>
-      <Logo />
-      <nav className='z-50 w-max py-3 px-8 border border-solid border-dark rounded-full font-medium capitalize flex items-center fixed top-6 right-1/2 translate-x-1/2 bg-light/80 backdrop-blur-sm'>
-        <Link href="/" className='mr-2'>Home</Link>
-        <Link href="/about" className='mr-2'>About</Link>
-        <Link href="/contact" className='mr-2'>Contact</Link>
-        {/* <button onClick={()=> setMode(mode === "light" ? "dark" : "light")}>
-          <SunIcon />
-        </button> */}
-        <div className='md:hidden block'>
-      <Logout />
+    <header className='w-full fixed top-0 left-0 z-50 bg-neutral-900 border-b border-neutral-800'>
+      <div className='container mx-auto px-4 py-3 flex items-center justify-between'>
+        <Logo />
+        
+        <nav className='hidden md:flex items-center gap-6'>
+          <Link 
+            href="/" 
+            className='text-gray-300 hover:text-white transition-colors'
+          >
+            Home
+          </Link>
+          <Link 
+            href="/about" 
+            className='text-gray-300 hover:text-white transition-colors'
+          >
+            About
+          </Link>
+          <Link 
+            href="/contact" 
+            className='text-gray-300 hover:text-white transition-colors'
+          >
+            Contact
+          </Link>
+          
+          <button 
+            onClick={() => setMode(mode === "light" ? "dark" : "light")}
+            className='text-gray-300 hover:text-white transition-colors'
+          >
+            <SunIcon size={20} />
+          </button>
+          
+          <div className='ml-4'>
+            <Logout />
+          </div>
+        </nav>
+
+        {/* Mobile menu button and logout would go here */}
+        <div className='flex md:hidden items-center gap-4'>
+          <button 
+            onClick={() => setMode(mode === "light" ? "dark" : "light")}
+            className='text-gray-300 hover:text-white transition-colors'
+          >
+            <SunIcon size={20} />
+          </button>
+          <Logout />
+        </div>
       </div>
-      </nav>
-      <div className='hidden md:block'>
-      <Logout />
-      </div>
-      
-    </div>
+    </header>
   )
 }
 

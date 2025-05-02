@@ -60,13 +60,13 @@ const Logout = () => {
         {error && <div className="text-red-500 text-center mb-4">{error}</div>}
 
         <div className="text-center">
-          <button
-            onClick={handleLogout}
-            className=""
-            disabled={loading}
-          >
-            {loading ? <Loading /> : 'Logout'}
-          </button>
+        <button
+              onClick={handleLogout}
+              className="px-4 py-2 rounded-md bg-neutral-800 text-white transition duration-300 hover:bg-red-600 w-full"
+              disabled={loading}
+            >
+              {loading ? <Loading /> : 'Logout'}
+            </button>
         </div>
       </div>
     </div>

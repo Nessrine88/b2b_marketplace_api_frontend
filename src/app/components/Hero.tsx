@@ -1,4 +1,3 @@
-import Logout from "./Logout";
 import ManufacturersList from "./ManufacturersList";
 
 const Hero = () => {
