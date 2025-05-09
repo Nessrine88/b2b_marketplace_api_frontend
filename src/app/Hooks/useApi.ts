@@ -14,12 +14,15 @@ export function useApi<T = unknown>() {
   const request = async (endpoint: string, options?: UseApiOptions) => {
     setLoading(true);
     setError(null);
+const apiUrl = `${process.env.NEXT_PUBLIC_API_URL}${endpoint}`;
+console.log(apiUrl);
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${endpoint}`, {
+      const res = await fetch(apiUrl, {
         method: options?.method || 'GET',
         headers: {
           'Content-Type': 'application/json',
+          
           ...(options?.headers || {}),
         },
         body: options?.body ? JSON.stringify(options.body) : undefined,
@@ -33,7 +36,7 @@ export function useApi<T = unknown>() {
       const json = await res.json();
       setData(json);
 
-      return { json, authHeader }; // return authHeader for login use
+      return { json, authHeader };
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Unknown error');
       return null;

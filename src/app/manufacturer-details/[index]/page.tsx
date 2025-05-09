@@ -97,21 +97,33 @@ const ManufacturerDetails = () => {
               </ul>
 
               {/* ✅ Pagination controls */}
-              <div className="flex fixed justify-center items-center gap-4 mt-10  right-1/2 translate-x-1/2 bottom-10">
+              <div className="flex fixed justify-center items-center gap-4 mt-52  right-1/2 translate-x-1/2 bottom-5 ">
                 <button
                   onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
                   disabled={currentPage === 1}
-                  className="px-4 py-2 text-black rounded bg-gray-200 hover:bg-gray-300 disabled:opacity-50"
+                  className="px-2 mr-5 py-1 text-black rounded bg-gray-200 hover:bg-gray-300 disabled:opacity-50"
                 >
                   Previous
                 </button>
-                <span className="text-gray-700">
-                  Page {currentPage} of {totalPages}
-                </span>
+                <div className="flex items-center gap-2">
+    {Array.from({ length: totalPages }, (_, i) => i + 1).map((number) => (
+      <button
+        key={number}
+        onClick={() => setCurrentPage(number)}
+        className={`px-4 py-2 border rounded ${
+          currentPage === number
+            ? 'bg-neutral-500 text-white'
+            : 'bg-white text-gray-700 hover:bg-gray-100'
+        }`}
+      >
+        {number}
+      </button>
+    ))}
+  </div>
                 <button
                   onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
                   disabled={currentPage === totalPages}
-                  className="text-black px-4 py-2 rounded bg-gray-200 hover:bg-gray-300 disabled:opacity-50"
+                  className="text-black px-2 mr-5 py-1 rounded bg-gray-200 hover:bg-gray-300 disabled:opacity-50"
                 >
                   Next
                 </button>

@@ -1,75 +1,57 @@
-"use client"
-import React, { useState } from 'react';
+'use client';
+import React, { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import ProtectedRoute from './ProtectedRoute';
 import Loading from './Loading';
+import { useApi } from '../Hooks/useApi';
 
 const Logout = () => {
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string>(''); // Ensure `error` is typed as string
-  const router = useRouter(); // Redirect after logout
+  const router = useRouter();
+  const { loading, error, request } = useApi();
 
   const handleLogout = async () => {
-    setLoading(true);
-    setError('');
+    const token = localStorage.getItem('token');
+    console.log('Logging out with token:', token);
 
-    try {
-      // Retrieve the token from localStorage (or wherever it's stored)
-      const token = localStorage.getItem('token');
+    if (!token) {
+      alert('No token found. You are not logged in.');
+      return;
+    }
 
-      // If no token exists, show an error
-      if (!token) {
-        setError('No token found. You are not logged in.');
-        return;
-      }
+    const response = await request('/logout', {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
-      // Make the logout request
-      const response = await fetch('http://localhost:3000/logout', {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`, 
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to log out');
-      }
-
+    if (response) {
+      // Logout successful
       localStorage.removeItem('token');
       localStorage.removeItem('user');
-
       router.push('/login');
-    } catch (err) {
-      if (err instanceof Error) {
-        setError(err.message);
-      } else {
-        setError('An unknown error occurred'); 
-      }
-    } finally {
-      setLoading(false);
+    } else {
+      // Optional: handle error via UI
+      alert('Logout failed.');
     }
   };
 
   return (
     <ProtectedRoute>
-    <div className="">
       <div className="">
-
-        
-        {error && <div className="text-red-500 text-center mb-4">{error}</div>}
-
-        <div className="text-center">
-        <button
+        <div className="">
+          {error && <div className="text-red-500 text-center mb-4">{error}</div>}
+          <div className="text-center">
+            <button
               onClick={handleLogout}
               className="px-3 py-1 rounded-md bg-neutral-800 text-white transition duration-300 hover:bg-red-600 w-full"
               disabled={loading}
             >
               {loading ? <Loading /> : 'Logout'}
             </button>
+          </div>
         </div>
       </div>
-    </div>
     </ProtectedRoute>
   );
 };

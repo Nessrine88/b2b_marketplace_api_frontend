@@ -26,15 +26,22 @@ export function useFetch<T>(endpoint: string | null): FetchState<T> {
     const apiUrl = `${process.env.NEXT_PUBLIC_API_URL}${endpoint}`;
     
     const fetchData = async () => {
+      const token = localStorage.getItem('token'); // Retrieve Bearer token
+
       try {
-        const response = await fetch(apiUrl);
-        
+        const response = await fetch(apiUrl, {
+          headers: {
+            'Content-Type': 'application/json',
+            ...(token ? { 'Authorization': `Bearer ${token}` } : {}),
+          },
+        });
+
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-        
+
         const data = await response.json();
-        
+
         setState({
           data,
           loading: false,

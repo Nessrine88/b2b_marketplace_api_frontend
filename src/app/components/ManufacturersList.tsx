@@ -40,7 +40,7 @@ const ManufacturersList = () => {
   }
 
   const manufacturers = data.map((item: any) => ({
-    imageSrc: item.image_url || '',
+    imageSrc: item.image || '',
     description: item.description || '',
     name: item.name || '',
     category: item.category || '',
