@@ -17,8 +17,8 @@ const Header = () => {
   ]
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg shadow-md">
-      <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
+    <header className="sticky top-0 z-50 w-full bg-white/80 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 backdrop-blur-lg shadow-md">
+      <div className="max-w-7xl mx-auto flex items-center justify-between px-6 ">
         <Logo />
 
         {/* Desktop Navigation */}
